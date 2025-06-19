@@ -16,4 +16,10 @@ getMovie(pageNumber:number):Observable<movieContainer>
 {
  return  this._HttpClient.get<movieContainer>(`${environment.baseUrl}/movie/popular?api_key=${environment.apiKey}&page=${pageNumber}`)
 }
+  /*-------------------------------Search function ---------------------------------------------------- */
+  searchMovies(query: string): Observable<movieContainer> {
+    return this._HttpClient.get<movieContainer>(
+      `${environment.baseUrl}/search/movie?api_key=${environment.apiKey}&query=${encodeURIComponent(query)}`
+    );
+  }
 }

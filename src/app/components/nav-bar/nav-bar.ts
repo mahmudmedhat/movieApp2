@@ -1,12 +1,22 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [RouterLink,RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './nav-bar.html',
-  styleUrl: './nav-bar.css'
+  styleUrls: ['./nav-bar.css']
 })
 export class NavBar {
+  private router = inject(Router);
 
+  onSearch(event: Event, query: string) {
+    event.preventDefault();
+    const trimmedQuery = query.trim();
+    if (trimmedQuery) {
+      this.router.navigate(['/search'], { queryParams: { q: trimmedQuery } });
+    }
+  }
 }
+
+
