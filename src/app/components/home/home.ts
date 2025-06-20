@@ -43,7 +43,6 @@ export class Home implements OnInit {
     error: (err) => {
       console.log(err);
 
-      // في حالة حصل Error برضو نخليها false
       this.isLoading = false;
     }
   });

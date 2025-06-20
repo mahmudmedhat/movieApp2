@@ -4,11 +4,19 @@
       <div class="card col-sm-12 col-lg-3 ">
         <img class="card-img-top" [src]="ImgSrc + item.poster_path" alt="" />
       </div>
-
+<!-- 
+       <span class="pe-2 fs-4 crpinter" > <i class="fas fa-heart"  [class.text-danger]="WatchList.isInWishlist(item.id)"
+                  [class.text-secondary]="!WatchList.isInWishlist(item.id)" (click)="toggleWishlist(item)"></i></span>
+          </div> -->
       <div class="col-md-3 col-lg-6 ">
      <div class="d-flex">
            <p class="fw-bolder m-0 ps-2 w-100 fs-3">{{item.original_title}}</p>
-                   <span class="pe-2 fs-4 "> <i class="fas fa-heart"></i></span>
+                   <span class="pe-2 fs-4 "> <i class="fas fa-heart" 
+                    [class.text-danger]="WatchList.watchListService.isInWishlist(item.id)"
+                     [class.text-secondary]="!WatchList.watchListService.isInWishlist(item.id)"
+                     (click)="toggleWishlist(item)"
+
+                     ></i></span>
      </div>
 
         <p class="text-muted fw-light ps-2 date">{{item.release_date}}</p>
@@ -68,3 +76,4 @@
 
 
 </div>
+
