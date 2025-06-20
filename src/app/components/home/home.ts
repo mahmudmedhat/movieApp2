@@ -20,6 +20,7 @@ export class Home implements OnInit {
   pages: number[] = [];
   currentPage: number = 1;
   ImgSrc = environment.imageBaseUrl;
+  isLoading: boolean = false;
 
   private _Movises = inject(Movises);
 
@@ -30,13 +31,23 @@ export class Home implements OnInit {
   }
 
   loadMovie(page: number): void {
-    this.currentPage = page;
-    this._Movises.getMovie(page).subscribe(response => {
+  this.currentPage = page;
+  this.isLoading = true;
+
+  this._Movises.getMovie(page).subscribe({
+    next: (response) => {
       this.responseMovie = response.results;
       this.pages = Array.from({ length: 4 }, (_, i) => i + 1);
-    });
-  }
+      this.isLoading = false;
+    },
+    error: (err) => {
+      console.log(err);
 
+      // في حالة حصل Error برضو نخليها false
+      this.isLoading = false;
+    }
+  });
+}
   goToPage(page: number) {
     this.loadMovie(page);
   }
@@ -48,5 +59,5 @@ export class Home implements OnInit {
       this.WatchList.addToWishlist(movie);
     }
   }
-  
+
 }
