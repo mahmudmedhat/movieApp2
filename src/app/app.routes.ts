@@ -8,7 +8,7 @@ import { SearchComponent } from './components/search/search';
 export const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", component: Home },
-  { path: "movie-details/:id", component: MovieDetails },
+  {path:"movie-details/:id",component:MovieDetails},
   { path: "Watch", component: WatchList },
   { path: "search", component: SearchComponent },
   { path: 'not-found', component: NotFound },
