@@ -9,14 +9,14 @@ import { CommonModule } from '@angular/common';
   templateUrl: './watch-list.html',
   styleUrl: './watch-list.css'
 })
-export class WatchList {
-constructor(public watchListService: WatchListService) {}
+export class WatchListC {
+constructor(public _watchListService: WatchListService) {}
 
   get movies(): IMovises[] {
-    return this.watchListService.getWishlist();
+    return this._watchListService.getWishlist();
   }
 
   removeFromWatchlist(id: number) {
-    this.watchListService.removeFromWishlist(id);
+    this._watchListService.removeFromWishlist(id);
   }
 }

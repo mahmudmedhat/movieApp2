@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 export class SearchComponent implements OnInit {
   searchTerm: string = '';
   results: IMovises[] = [];
+  loading: boolean = false;
   environment = environment;
 
   private _route = inject(ActivatedRoute);
@@ -25,16 +26,20 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this._route.queryParams.subscribe(params => {
       this.searchTerm = params['q'] || '';
+
       if (this.searchTerm) {
-        this._movises.searchMovies(this.searchTerm).subscribe({
+           this.loading=true;
+       this._movises.searchMovies(this.searchTerm).subscribe({
           next: (res) => {
             this.results = res.results;
+   this.loading=false;
             if (this.results.length === 0) {
               this._router.navigate(['/not-found']);
             }
           },
           error: (err) => {
             console.error(err);
+               this.loading=false;
             this._router.navigate(['/not-found']);
           }
         });

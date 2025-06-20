@@ -1,19 +1,23 @@
+<div *ngIf="loading" class="spinner-container">
+  <div class="spinner"></div>
+</div>
+
 <div class="container m-auto p-4 shadow mt-4">
   <div class="row g-5">
     <div class="h-100 d-lg-flex">
-      <div class="card col-sm-12 col-lg-3 ">
+      <div  *ngIf="!loading && item" class="card col-sm-12 col-lg-3 ">
         <img class="card-img-top" [src]="ImgSrc + item.poster_path" alt="" />
       </div>
-<!-- 
+<!--
        <span class="pe-2 fs-4 crpinter" > <i class="fas fa-heart"  [class.text-danger]="WatchList.isInWishlist(item.id)"
                   [class.text-secondary]="!WatchList.isInWishlist(item.id)" (click)="toggleWishlist(item)"></i></span>
           </div> -->
       <div class="col-md-3 col-lg-6 ">
      <div class="d-flex">
            <p class="fw-bolder m-0 ps-2 w-100 fs-3">{{item.original_title}}</p>
-                   <span class="pe-2 fs-4 "> <i class="fas fa-heart" 
-                    [class.text-danger]="WatchList.watchListService.isInWishlist(item.id)"
-                     [class.text-secondary]="!WatchList.watchListService.isInWishlist(item.id)"
+                   <span class="pe-2 fs-4 "> <i class="fas fa-heart"
+                    [class.text-danger]="WatchListServ.isInWishlist(item.id)"
+                     [class.text-secondary]="!WatchListServ.isInWishlist(item.id)"
                      (click)="toggleWishlist(item)"
 
                      ></i></span>
@@ -26,7 +30,7 @@
                       <span>⭐</span>
          </ng-container>
          <p class="ms-2">{{item.vote_count}}</p>
-             
+
             </div>
         </ng-container>
         <p class="m-0 ps-2 w-100 fs-6">{{item.overview}}</p>

@@ -51,12 +51,31 @@ export class Home implements OnInit {
     this.loadMovie(page);
   }
 
-  toggleWishlist(movie: IMovises) {
-    if (this.WatchList.isInWishlist(movie.id)) {
-      this.WatchList.removeFromWishlist(movie.id);
-    } else {
-      this.WatchList.addToWishlist(movie);
-    }
+
+
+
+
+
+  message: string = '';
+messageType: 'success' | 'danger' = 'success';
+
+showMessage(msg: string, type: 'success' | 'danger' = 'success') {
+  this.message = msg;
+  this.messageType = type;
+
+  setTimeout(() => {
+    this.message = '';
+  }, 2000); // تختفي بعد ثانيتين
+}
+
+toggleWishlist(movie: IMovises) {
+  if (this.WatchList.isInWishlist(movie.id)) {
+    this.WatchList.removeFromWishlist(movie.id);
+    this.showMessage('❌ تمت الإزالة من المفضلة', 'danger');
+  } else {
+    this.WatchList.addToWishlist(movie);
+    this.showMessage('✅ تمت الإضافة إلى المفضلة', 'success');
   }
+}
 
 }
