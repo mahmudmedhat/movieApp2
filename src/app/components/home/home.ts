@@ -20,7 +20,7 @@ export class Home implements OnInit {
   pages: number[] = [];
   currentPage: number = 1;
   ImgSrc = environment.imageBaseUrl;
-
+isLoading: boolean = false;
   private _Movises = inject(Movises);
 
   constructor(public WatchList: WatchListService) {}
@@ -28,15 +28,22 @@ export class Home implements OnInit {
   ngOnInit(): void {
     this.loadMovie(this.currentPage);
   }
+loadMovie(page: number): void {
+  this.currentPage = page;
+  this.isLoading = true;
 
-  loadMovie(page: number): void {
-    this.currentPage = page;
-    this._Movises.getMovie(page).subscribe(response => {
+  this._Movises.getMovie(page).subscribe({
+    next: (response) => {
       this.responseMovie = response.results;
       this.pages = Array.from({ length: 4 }, (_, i) => i + 1);
-    });
-  }
-
+      this.isLoading = false;
+    },
+    error: (err) => {
+      console.log(err)
+           this.isLoading = false;
+    }
+  });
+}
   goToPage(page: number) {
     this.loadMovie(page);
   }
@@ -48,5 +55,5 @@ export class Home implements OnInit {
       this.WatchList.addToWishlist(movie);
     }
   }
-  
+
 }
